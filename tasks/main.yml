@@ -1,0 +1,5 @@
+- name: put values
+  template: src=values.yml dest=/tmp/grafana-{{ grafana_helm_release }}.yml
+
+- name: upgrade {{ grafana_helm_release }} release using a Helm chart
+  shell: helm upgrade {{ grafana_helm_release }} stable/grafana --install --recreate-pods --namespace {{ k8s_namespace }} -f /tmp/grafana-{{ grafana_helm_release }}.yml
