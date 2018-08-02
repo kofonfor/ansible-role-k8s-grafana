@@ -1,2 +1,14 @@
 persistence:
-  enabled: false
+  enabled: true
+  storageClassName: standard
+  accessModes:
+    - ReadWriteOnce
+  size: 10Gi
+  annotations: {}
+  subPath: ""
+
+service:
+  type: LoadBalancer
+
+adminUser: {{ k8s_grafana_admin_name }}
+adminPassword: {{ k8s_grafana_admin_password }}
