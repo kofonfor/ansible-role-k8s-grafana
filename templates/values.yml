@@ -1,6 +1,6 @@
 persistence:
-  enabled: true
-  storageClassName: standard
+  enabled: {{ k8s_grafana_persistence_enabled }}
+  storageClassName: {{ storage_class_name }}
   accessModes:
     - ReadWriteOnce
   size: 10Gi
@@ -8,7 +8,22 @@ persistence:
   subPath: ""
 
 service:
-  type: LoadBalancer
+  type: {{ k8s_grafana_service_type }}
 
 adminUser: {{ k8s_grafana_admin_name }}
 adminPassword: {{ k8s_grafana_admin_password }}
+
+grafana.ini:
+  paths:
+    data: /var/lib/grafana/data
+    logs: /var/log/grafana
+    plugins: /var/lib/grafana/plugins
+    provisioning: /etc/grafana/provisioning
+  analytics:
+    check_for_updates: true
+  log:
+    mode: console
+  grafana_net:
+    url: https://grafana.net
+  database:
+    url: mysql://grafana:{{ k8s_grafana_db_password }}@grafana-xtradb-pxc:3306/grafana
