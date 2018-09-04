@@ -2,4 +2,4 @@
   template: src=values.yml dest=/tmp/grafana-{{ grafana_helm_release }}.yml
 
 - name: upgrade {{ grafana_helm_release }} release using a Helm chart
-  shell: helm upgrade {{ grafana_helm_release }} stable/grafana --install --recreate-pods --namespace {{ k8s_namespace }} -f /tmp/grafana-{{ grafana_helm_release }}.yml
+  shell: export KUBECONFIG=/etc/kubernetes/admin.conf && helm upgrade {{ grafana_helm_release }} stable/grafana --install --namespace {{ k8s_namespace }} -f /tmp/grafana-{{ grafana_helm_release }}.yml
