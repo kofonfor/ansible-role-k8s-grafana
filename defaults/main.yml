@@ -1,3 +1,4 @@
 k8s_grafana_service_type: LoadBalancer
 storage_class_name: standard
 k8s_grafana_persistence_enabled: true
+k8s_grafana_persistence_size: 10Gi

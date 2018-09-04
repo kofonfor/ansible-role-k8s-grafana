@@ -3,7 +3,7 @@ persistence:
   storageClassName: {{ storage_class_name }}
   accessModes:
     - ReadWriteOnce
-  size: 10Gi
+  size: {{ k8s_grafana_persistence_size }}
   annotations: {}
   subPath: ""
 
@@ -26,4 +26,4 @@ grafana.ini:
   grafana_net:
     url: https://grafana.net
   database:
-    url: mysql://grafana:{{ k8s_grafana_db_password }}@grafana-xtradb-pxc:3306/grafana
+    url: {{ k8s_grafana_db_type }}://{{ k8s_grafana_db_user }}:{{ k8s_grafana_db_password }}@{{ k8s_grafana_db_host }}:{{ k8s_grafana_db_port }}/{{ k8s_grafana_db_name }}
