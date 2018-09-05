@@ -9,6 +9,7 @@ persistence:
 
 service:
   type: {{ k8s_grafana_service_type }}
+  nodePort: {{ k8s_grafana_nodeport }}
 
 adminUser: {{ k8s_grafana_admin_name }}
 adminPassword: {{ k8s_grafana_admin_password }}
