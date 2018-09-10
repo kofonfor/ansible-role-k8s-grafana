@@ -9,7 +9,9 @@ persistence:
 
 service:
   type: {{ k8s_grafana_service_type }}
+{% if k8s_grafana_service_type == "NodePort" %}
   nodePort: {{ k8s_grafana_nodeport }}
+{% endif %}
 
 adminUser: {{ k8s_grafana_admin_name }}
 adminPassword: {{ k8s_grafana_admin_password }}
@@ -26,5 +28,7 @@ grafana.ini:
     mode: console
   grafana_net:
     url: https://grafana.net
+{% if k8s_grafana_db_type is defined %}
   database:
     url: {{ k8s_grafana_db_type }}://{{ k8s_grafana_db_user }}:{{ k8s_grafana_db_password }}@{{ k8s_grafana_db_host }}:{{ k8s_grafana_db_port }}/{{ k8s_grafana_db_name }}
+{% endif %}
