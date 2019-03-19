@@ -16,6 +16,11 @@ service:
 adminUser: {{ k8s_grafana_admin_name }}
 adminPassword: {{ k8s_grafana_admin_password }}
 
+{% if k8s_grafana_datasources is defined %}
+datasources:
+{{ k8s_grafana_datasources|indent(2,True) }}
+{% endif %}
+
 grafana.ini:
   paths:
     data: /var/lib/grafana/data
