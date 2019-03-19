@@ -9,7 +9,7 @@ persistence:
 
 service:
   type: {{ k8s_grafana_service_type }}
-{% if k8s_grafana_service_type == "NodePort" %}
+{% if k8s_grafana_service_type == "NodePort" and k8s_grafana_nodeport is defined %}
   nodePort: {{ k8s_grafana_nodeport }}
 {% endif %}
 
