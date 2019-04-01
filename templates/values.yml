@@ -71,7 +71,13 @@ dashboards:
            "panels": [
 {% for panel in dashboard.panels %}
               {
-                 "aliasColors": { },
+                 "aliasColors": {
+{% if panel.alias_colors is defined %}
+{% for alias, color in panel.alias_colors.iteritems() %}
+                    "{{ alias }}": "{{ color }}"{% if not loop.last %},{% endif %}
+{% endfor %}
+{% endif %}
+                 },
                  "bars": false,
                  "dashLength": 10,
                  "dashes": false,
