@@ -124,7 +124,7 @@ dashboards:
                        "intervalFactor": "2",
                        "legendFormat": "{{ target.legend_format }}",
                        "refId": "A"
-                    }
+                    }{% if not loop.last %},{% endif %}
 {% endfor %}
                  ],
                  "thresholds": [ ],
@@ -198,7 +198,7 @@ dashboards:
                     "tagsQuery": "",
                     "type": "query",
                     "useTags": false
-                 }
+                 }{% if not loop.last %},{% endif %}
 {% endfor %}
               ]
            },
