@@ -82,7 +82,7 @@ dashboards:
                  "dashLength": 10,
                  "dashes": false,
                  "datasource": "default",
-                 "fill": 10,
+                 "fill": {% if panel.fill is defined %}{{ panel.fill }}{% else %}10{% endif %},
                  "gridPos": {
                     "h": {{ panel.gridpos_h }},
                     "w": {{ panel.gridpos_w }},
@@ -113,7 +113,7 @@ dashboards:
                  "seriesOverrides": [ ],
                  "spaceLength": 10,
                  "span": 6,
-                 "stack": true,
+                 "stack": {% if panel.stack is defined %}{{ panel.stack }}{% else %}true{% endif %},
                  "steppedLine": false,
                  "targets": [
 {% for target in panel.targets %}
@@ -127,7 +127,7 @@ dashboards:
                     }{% if not loop.last %},{% endif %}
 {% endfor %}
                  ],
-                 "thresholds": [ ],
+                 "thresholds": "",
                  "timeFrom": null,
                  "timeShift": null,
                  "title": "{{ panel.name }}",
@@ -136,7 +136,13 @@ dashboards:
                     "sort": 0,
                     "value_type": "individual"
                  },
-                 "type": "graph",
+{% if panel.value_name is defined %}
+                 "valueName": "{{ panel.value_name }}",
+{% endif %}
+{% if panel.color_value is defined %}
+                 "colorValue": {{ panel.color_value }},
+{% endif %}
+{% if panel.type is not defined or (panel.type is defined and panel.type != "singlestat") %}
                  "xaxis": {
                     "buckets": null,
                     "mode": "time",
@@ -163,7 +169,9 @@ dashboards:
                        "min": {% if panel.min is defined %}{{ panel.min }}{% else %}null{% endif %},
                        "show": true
                     }
-                 ]
+                 ],
+{% endif %}
+                 "type": "{% if panel.type is defined %}{{ panel.type }}{% else %}graph{% endif %}"
               }{% if not loop.last %},{% endif %}
 {% endfor %}
            ],
